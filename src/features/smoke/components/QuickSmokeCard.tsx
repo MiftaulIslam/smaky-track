@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { Cigarette, Flame } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Button } from "@/src/components/ui/button";
 import {
@@ -20,13 +20,25 @@ import { formatBDT } from "@/src/lib/money";
 interface QuickSmokeCardProps {
   brands: CigaretteBrand[];
   defaultBrandId?: string;
+  onOptimisticLog?: (brand: {
+    id: string;
+    name: string;
+    defaultPriceMinor: number;
+  }) => void;
+  onRollback?: () => void;
+  onSettled?: () => void;
 }
 
-export function QuickSmokeCard({ brands, defaultBrandId }: QuickSmokeCardProps) {
+export function QuickSmokeCard({
+  brands,
+  defaultBrandId,
+  onOptimisticLog,
+  onRollback,
+  onSettled,
+}: QuickSmokeCardProps) {
   const [selectedBrandId, setSelectedBrandId] = useState(
     defaultBrandId ?? brands[0]?.id ?? ""
   );
-  const queryClient = useQueryClient();
 
   const selectedBrand = brands.find((b) => b.id === selectedBrandId);
 
@@ -37,15 +49,21 @@ export function QuickSmokeCard({ brands, defaultBrandId }: QuickSmokeCardProps) 
       return result;
     },
     onMutate: async () => {
-      // Optimistic: immediately show success feedback
+      if (selectedBrand) {
+        onOptimisticLog?.({
+          id: selectedBrand.id,
+          name: selectedBrand.name,
+          defaultPriceMinor: selectedBrand.defaultPriceMinor,
+        });
+      }
       toast.loading("Logging smoke…", { id: "quick-smoke" });
     },
     onSuccess: () => {
       toast.success("Smoke logged!", { id: "quick-smoke" });
-      queryClient.invalidateQueries({ queryKey: ["kpis"] });
-      queryClient.invalidateQueries({ queryKey: ["calendar"] });
+      onSettled?.();
     },
     onError: (err) => {
+      onRollback?.();
       toast.error(err.message ?? "Failed to log smoke", { id: "quick-smoke" });
     },
   });

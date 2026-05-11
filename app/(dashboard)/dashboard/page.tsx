@@ -11,18 +11,12 @@ import {
   getRecentSmokes,
 } from "@/src/features/smoke/queries";
 import { getActiveBrands } from "@/src/features/brands/queries";
-import { KpiCards } from "@/src/features/smoke/components/KpiCards";
-import { QuickSmokeCard } from "@/src/features/smoke/components/QuickSmokeCard";
 import { SectionHeader } from "@/src/components/common/SectionHeader";
-import { Card, CardContent } from "@/src/components/ui/card";
-import { Separator } from "@/src/components/ui/separator";
-import { formatBDT } from "@/src/lib/money";
-import { format } from "date-fns";
 import Link from "next/link";
 import { Button } from "@/src/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { ContributionCalendarPanel } from "@/src/features/dashboard/components/ContributionCalendarPanel";
 import { DashboardChartsGrid } from "@/src/features/dashboard/components/DashboardChartsGrid";
+import { DashboardLiveSection } from "@/src/features/dashboard/components/DashboardLiveSection";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -44,7 +38,7 @@ export default async function DashboardPage() {
       getMonthlyAggregates(userId, 12),
       getBrandDistribution(userId, 30),
       getCalendarData(userId, currentYear),
-      getRecentSmokes(userId, 5),
+      getRecentSmokes(userId, 20),
     ]);
 
   const lastBrandId = recentSmokes[0]?.brand.id;
@@ -60,20 +54,15 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      <KpiCards kpis={kpis} lastSmokeAt={lastSmokeAt} />
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        <QuickSmokeCard brands={brands} defaultBrandId={lastBrandId} />
-        <div className="lg:col-span-2">
-          <ContributionCalendarPanel
-            title="Smoking Activity"
-            initialYear={currentYear}
-            initialData={calendarData}
-          />
-        </div>
-      </div>
-
-      <Separator />
+      <DashboardLiveSection
+        initialKpis={kpis}
+        initialLastSmokeAt={lastSmokeAt}
+        brands={brands}
+        defaultBrandId={lastBrandId}
+        initialCalendarData={calendarData}
+        initialYear={currentYear}
+        initialRecentSmokes={recentSmokes}
+      />
 
       <section aria-labelledby="analytics-heading">
         <SectionHeader
@@ -96,59 +85,6 @@ export default async function DashboardPage() {
           brandDist={brandDist}
           kpis={kpis}
         />
-      </section>
-
-      <Separator />
-
-      <section aria-labelledby="recent-heading">
-        <SectionHeader
-          id="recent-heading"
-          title="Recent Activity"
-          action={
-            <Button asChild variant="ghost" size="sm" className="gap-1">
-              <Link href="/history">
-                View all <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
-            </Button>
-          }
-          className="mb-4"
-        />
-
-        {recentSmokes.length === 0 ? (
-          <p className="text-[14px] text-slate-text">
-            No smokes logged yet. Hit &quot;Smoke Now&quot; to get started!
-          </p>
-        ) : (
-          <Card>
-            <CardContent className="p-0">
-              <ul role="list">
-                {recentSmokes.map((entry, idx) => (
-                  <li
-                    key={entry.id}
-                    className={`flex items-center justify-between px-6 py-3 ${idx < recentSmokes.length - 1 ? "border-b border-gunmetal" : ""}`}
-                  >
-                    <div>
-                      <span className="text-[14px] font-medium text-ghost-white">
-                        {entry.brand.name}
-                      </span>
-                      {entry.note && (
-                        <p className="text-[12px] text-slate-text">{entry.note}</p>
-                      )}
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[14px] text-ghost-white">
-                        {formatBDT(entry.priceMinor)}
-                      </p>
-                      <p className="text-[12px] text-slate-text">
-                        {format(entry.smokedAt, "MMM d, h:mm a")}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
       </section>
     </div>
   );
