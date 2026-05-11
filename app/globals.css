@@ -1,26 +1,138 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Colors ─────────────────────────────────────────── */
+  --color-midnight-base: #0a0a0a;
+  --color-storm-gray: #161616;
+  --color-gunmetal: #282828;
+  --color-slate-text: #686868;
+  --color-ash-text: #b2b2b2;
+  --color-silver-whisper: #c2c2c2;
+  --color-ghost-white: #e5e5e5;
+  --color-canvas-white: #ffffff;
+  --color-gradient-aura: #4867af;
+  --color-interactive-glow: #6b62f2;
+
+  /* Semantic aliases */
+  --color-background: var(--color-midnight-base);
+  --color-foreground: var(--color-ghost-white);
+  --color-border: var(--color-gunmetal);
+  --color-muted: var(--color-storm-gray);
+  --color-muted-foreground: var(--color-slate-text);
+  --color-accent: var(--color-interactive-glow);
+  --color-card: #00000033;
+  --color-card-foreground: var(--color-ghost-white);
+  --color-popover: #0f0f0f;
+  --color-popover-foreground: var(--color-ghost-white);
+  --color-primary: var(--color-canvas-white);
+  --color-primary-foreground: var(--color-storm-gray);
+  --color-secondary: var(--color-gunmetal);
+  --color-secondary-foreground: var(--color-ghost-white);
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-ring: var(--color-interactive-glow);
+  --color-input: var(--color-gunmetal);
+
+  /* ── Typography ─────────────────────────────────────── */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Geist", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Type scale */
+  --text-caption: 14px;
+  --leading-caption: 1.5;
+  --tracking-caption: 0.35px;
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --tracking-body: 0.4px;
+  --text-subheading: 18px;
+  --leading-subheading: 1.5;
+  --tracking-subheading: 0.45px;
+  --text-heading-sm: 24px;
+  --leading-heading-sm: 1.33;
+  --text-heading: 32px;
+  --leading-heading: 1.14;
+  --text-heading-lg: 36px;
+  --leading-heading-lg: 1.11;
+  --text-display: 48px;
+  --leading-display: 1;
+  --tracking-display: -0.672px;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ── Spacing ─────────────────────────────────────────── */
+  --spacing-unit: 4px;
+
+  /* ── Border Radius ───────────────────────────────────── */
+  --radius-md: 4px;
+  --radius-lg: 10px;
+  --radius-2xl: 19px;
+  --radius-3xl: 24px;
+  --radius-3xl-2: 40px;
+  --radius-full: 9999px;
+
+  /* Named radii */
+  --radius-card: 24px;
+  --radius-button: 9999px;
+  --radius-callout: 10px;
+  --radius: 10px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Base reset ────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background-color: var(--color-midnight-base);
+  color: var(--color-ghost-white);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-midnight-base);
+  color: var(--color-ghost-white);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  min-height: 100%;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-midnight-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gunmetal);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate-text);
+}
+
+/* ── Focus ring ──────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-interactive-glow);
+  outline-offset: 2px;
+}
+
+/* ── Selection ───────────────────────────────────────────── */
+::selection {
+  background-color: color-mix(in srgb, var(--color-interactive-glow) 30%, transparent);
+  color: var(--color-canvas-white);
 }
