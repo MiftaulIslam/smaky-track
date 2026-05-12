@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "../ui/button";
@@ -14,15 +15,27 @@ import {
 } from "../ui/drawer";
 
 const NavBarItems = [
-  { title: "Features", pointer: "#features" },
-  { title: "How it works", pointer: "#howItWorks" },
-  { title: "Compare", pointer: "#compare" },
-  { title: "Reviews", pointer: "#reviews" },
-  { title: "Pricing", pointer: "#pricing" },
-  { title: "FAQ", pointer: "#faq" },
-];
+  { title: "Overview", href: "/#overview" },
+  { title: "Features", href: "/#features" },
+  { title: "How it works", href: "/#how-it-works" },
+  { title: "Compare", href: "/#compare" },
+  { title: "Reviews", href: "/#reviews" },
+  { title: "Pricing", href: "/#pricing" },
+  { title: "FAQ", href: "/#faq" },
+] as const;
+
+function scrollToSectionFromHref(href: string): boolean {
+  const hash = href.split("#")[1];
+  if (!hash) return false;
+  const el = document.getElementById(hash);
+  if (!el) return false;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.history.replaceState(null, "", href);
+  return true;
+}
 
 export function ClientNavBar({ isLoggedIn }: { isLoggedIn: boolean }) {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -37,7 +50,11 @@ export function ClientNavBar({ isLoggedIn }: { isLoggedIn: boolean }) {
 
   const itemVariants = {
     hidden: { opacity: 0, x: 20 },
-    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring" as const, stiffness: 300, damping: 24 },
+    },
   };
 
   return (
@@ -45,7 +62,10 @@ export function ClientNavBar({ isLoggedIn }: { isLoggedIn: boolean }) {
       <div className="max-w-7xl mx-auto flex items-center justify-between h-full px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
-        <div className="flex items-center gap-3 w-auto md:w-48 z-50 relative group">
+        <Link
+          href="/"
+          className="flex items-center gap-3 w-auto md:w-48 z-50 relative group rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+        >
           <div className="flex p-1.5 items-center justify-center rounded-xl bg-surface-hover border border-border-strong group-hover:border-primary/50 transition-colors">
             <span className="text-sm leading-none" role="img" aria-label="cigarette">
               🚬
@@ -54,14 +74,20 @@ export function ClientNavBar({ isLoggedIn }: { isLoggedIn: boolean }) {
           <span className="font-heading text-base font-semibold text-foreground tracking-tight">
             Smaky Track
           </span>
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center justify-center gap-1 relative w-full">
           {NavBarItems.map((item, index) => (
-            <a
+            <Link
               key={item.title}
-              href={item.pointer}
+              href={item.href}
+              scroll={false}
+              onClick={(e) => {
+                if (pathname === "/" && scrollToSectionFromHref(item.href)) {
+                  e.preventDefault();
+                }
+              }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               className="relative px-4 py-2 text-sm text-foreground-subtle hover:text-foreground transition-colors rounded-full"
@@ -77,7 +103,7 @@ export function ClientNavBar({ isLoggedIn }: { isLoggedIn: boolean }) {
                 />
               )}
               <span className="relative z-10">{item.title}</span>
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -145,15 +171,21 @@ export function ClientNavBar({ isLoggedIn }: { isLoggedIn: boolean }) {
                   animate="show"
                 >
                   {NavBarItems.map((item) => (
-                    <motion.a
-                      key={item.title}
-                      href={item.pointer}
-                      variants={itemVariants}
-                      onClick={() => setIsOpen(false)}
-                      className="text-2xl font-heading font-medium text-foreground-subtle hover:text-foreground transition-colors"
-                    >
-                      {item.title}
-                    </motion.a>
+                    <motion.div key={item.title} variants={itemVariants}>
+                      <Link
+                        href={item.href}
+                        scroll={false}
+                        onClick={(e) => {
+                          if (pathname === "/" && scrollToSectionFromHref(item.href)) {
+                            e.preventDefault();
+                          }
+                          setIsOpen(false);
+                        }}
+                        className="block text-2xl font-heading font-medium text-foreground-subtle hover:text-foreground transition-colors"
+                      >
+                        {item.title}
+                      </Link>
+                    </motion.div>
                   ))}
 
                   <motion.div variants={itemVariants} className="w-full h-px bg-border-subtle my-4" />
