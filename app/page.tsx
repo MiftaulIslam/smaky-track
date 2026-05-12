@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { auth } from "@/src/auth";
 import { JsonLd } from "@/src/components/seo/JsonLd";
 import { Button } from "@/src/components/ui/button";
 import { Badge } from "@/src/components/ui/badge";
@@ -66,7 +67,10 @@ const features = [
   },
 ];
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth();
+  const isLoggedIn = Boolean(session?.user?.id);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -106,12 +110,20 @@ export default function LandingPage() {
             </span>
           </div>
           <nav className="flex items-center gap-3" aria-label="Primary navigation">
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/login">Sign in</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href="/signup">Get started</Link>
-            </Button>
+            {isLoggedIn ? (
+              <Button asChild size="sm">
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
+            ) : (
+              <>
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/login">Sign in</Link>
+                </Button>
+                <Button asChild size="sm">
+                  <Link href="/signup">Get started</Link>
+                </Button>
+              </>
+            )}
           </nav>
         </header>
 
@@ -162,19 +174,32 @@ export default function LandingPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
-                <Button asChild size="xl">
-                  <Link href="/signup">
-                    <Flame className="h-4 w-4" aria-hidden="true" />
-                    Start tracking free
-                  </Link>
-                </Button>
-                <Button asChild variant="ghost" size="xl">
-                  <Link href="/login">Sign in</Link>
-                </Button>
+                {isLoggedIn ? (
+                  <Button asChild size="xl">
+                    <Link href="/dashboard">
+                      <Flame className="h-4 w-4" aria-hidden="true" />
+                      Go to dashboard
+                    </Link>
+                  </Button>
+                ) : (
+                  <>
+                    <Button asChild size="xl">
+                      <Link href="/signup">
+                        <Flame className="h-4 w-4" aria-hidden="true" />
+                        Start tracking free
+                      </Link>
+                    </Button>
+                    <Button asChild variant="ghost" size="xl">
+                      <Link href="/login">Sign in</Link>
+                    </Button>
+                  </>
+                )}
               </div>
 
               <p className="text-[13px] text-slate-text">
-                Free to use · Google OAuth or email · No credit card
+                {isLoggedIn
+                  ? "You are logged in · Continue to your dashboard"
+                  : "Free to use · Google OAuth or email · No credit card"}
               </p>
             </div>
           </section>
@@ -240,8 +265,8 @@ export default function LandingPage() {
                 Join and start understanding your habits from day one.
               </p>
               <Button asChild size="xl" className="mx-auto">
-                <Link href="/signup">
-                  Create free account
+                <Link href={isLoggedIn ? "/dashboard" : "/signup"}>
+                  {isLoggedIn ? "Open dashboard" : "Create free account"}
                 </Link>
               </Button>
             </div>

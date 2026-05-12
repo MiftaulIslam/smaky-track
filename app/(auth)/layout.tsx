@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { auth } from "@/src/auth";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+  if (session?.user?.id) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-midnight-base p-4">
       <div

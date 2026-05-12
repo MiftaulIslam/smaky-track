@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { differenceInCalendarDays, format } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 import { KpiCards } from "@/src/features/smoke/components/KpiCards";
 import { QuickSmokeCard } from "@/src/features/smoke/components/QuickSmokeCard";
 import { ContributionCalendarPanel } from "@/src/features/dashboard/components/ContributionCalendarPanel";
+import { syncUserTimezoneAction } from "@/src/features/account/actions";
 import type {
   CalendarDay,
   KpiData,
@@ -59,6 +60,7 @@ export function DashboardLiveSection({
       smokedAt: toDate(entry.smokedAt)!,
     }))
   );
+  const timezoneSyncedRef = useRef(false);
 
   const snapshotRef = useRef<Snapshot | null>(null);
 
@@ -145,6 +147,14 @@ export function DashboardLiveSection({
     snapshotRef.current = null;
     router.refresh();
   }
+
+  useEffect(() => {
+    if (timezoneSyncedRef.current) return;
+    timezoneSyncedRef.current = true;
+
+    const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    void syncUserTimezoneAction(detectedTimeZone);
+  }, []);
 
   return (
     <>

@@ -11,6 +11,57 @@ export type AccountActionResult =
   | { success: true }
   | { success: false; error: string };
 
+const DEFAULT_TIMEZONE = "Asia/Dhaka";
+
+function isValidTimeZone(value: string) {
+  try {
+    Intl.DateTimeFormat("en-US", { timeZone: value });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export async function syncUserTimezoneAction(timezone?: string): Promise<AccountActionResult> {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return { success: false, error: "Unauthorized" };
+
+  const candidateTimezone =
+    typeof timezone === "string" && timezone.trim().length > 0
+      ? timezone.trim()
+      : DEFAULT_TIMEZONE;
+  const nextTimezone = isValidTimeZone(candidateTimezone)
+    ? candidateTimezone
+    : DEFAULT_TIMEZONE;
+
+  const current = await db.query.userSettings.findFirst({
+    where: eq(userSettings.userId, userId),
+  });
+
+  if (!current) {
+    await db.insert(userSettings).values({
+      userId,
+      currency: "BDT",
+      timezone: nextTimezone,
+    });
+    revalidatePath("/settings");
+    revalidatePath("/dashboard");
+    return { success: true };
+  }
+
+  if (current.timezone === "UTC") {
+    await db
+      .update(userSettings)
+      .set({ timezone: nextTimezone })
+      .where(eq(userSettings.userId, userId));
+    revalidatePath("/settings");
+    revalidatePath("/dashboard");
+  }
+
+  return { success: true };
+}
+
 export async function updateSettingsAction(
   _: AccountActionResult | null,
   formData: FormData

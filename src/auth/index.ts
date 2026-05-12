@@ -6,8 +6,12 @@ import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { db } from "@/src/db";
 import { accounts, sessions, users, verificationTokens } from "@/src/db/schema";
+import { env } from "@/src/lib/env";
 import { authConfig } from "./config";
 import { loginSchema } from "../features/auth/schemas";
+
+const ACCESS_TOKEN_MAX_AGE_SECONDS = env.AUTH_ACCESS_TOKEN_MAX_AGE_SECONDS;
+const REFRESH_TOKEN_MAX_AGE_SECONDS = env.AUTH_REFRESH_TOKEN_MAX_AGE_SECONDS;
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -17,11 +21,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
   }),
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+    maxAge: REFRESH_TOKEN_MAX_AGE_SECONDS,
+  },
+  jwt: {
+    maxAge: REFRESH_TOKEN_MAX_AGE_SECONDS,
+  },
   providers: [
     Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientId: env.AUTH_GOOGLE_ID,
+      clientSecret: env.AUTH_GOOGLE_SECRET,
     }),
     Credentials({
       async authorize(credentials) {
@@ -46,10 +56,36 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     ...authConfig.callbacks,
     async jwt({ token, user }) {
+      const nowSeconds = Math.floor(Date.now() / 1000);
+      const mutableToken = token as typeof token & {
+        id?: string;
+        accessTokenExpiresAt?: number;
+        refreshTokenExpiresAt?: number;
+      };
+
       if (user) {
-        token.id = user.id;
+        mutableToken.id = user.id;
+        mutableToken.accessTokenExpiresAt = nowSeconds + ACCESS_TOKEN_MAX_AGE_SECONDS;
+        mutableToken.refreshTokenExpiresAt = nowSeconds + REFRESH_TOKEN_MAX_AGE_SECONDS;
       }
-      return token;
+
+      if (!mutableToken.accessTokenExpiresAt) {
+        mutableToken.accessTokenExpiresAt = nowSeconds + ACCESS_TOKEN_MAX_AGE_SECONDS;
+      }
+
+      if (!mutableToken.refreshTokenExpiresAt) {
+        mutableToken.refreshTokenExpiresAt = nowSeconds + REFRESH_TOKEN_MAX_AGE_SECONDS;
+      }
+
+      if (nowSeconds > mutableToken.refreshTokenExpiresAt) {
+        return {} as typeof token;
+      }
+
+      if (nowSeconds > mutableToken.accessTokenExpiresAt) {
+        mutableToken.accessTokenExpiresAt = nowSeconds + ACCESS_TOKEN_MAX_AGE_SECONDS;
+      }
+
+      return mutableToken;
     },
     async session({ session, token }) {
       if (token.id && session.user) {
