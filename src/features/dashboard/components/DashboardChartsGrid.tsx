@@ -45,7 +45,7 @@ export function DashboardChartsGrid({
     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       <Card>
         <CardHeader>
-          <CardTitle className="text-[15px]">Daily Trend (30d)</CardTitle>
+          <CardTitle className="text-sm">Daily Trend (30d)</CardTitle>
         </CardHeader>
         <CardContent>
           <DailyTrendChart data={daily} />
@@ -54,7 +54,7 @@ export function DashboardChartsGrid({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-[15px]">Monthly Spending</CardTitle>
+          <CardTitle className="text-sm">Monthly Spending</CardTitle>
         </CardHeader>
         <CardContent>
           <SpendingAreaChart data={monthly} />
@@ -63,7 +63,7 @@ export function DashboardChartsGrid({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-[15px]">Brand Distribution (30d)</CardTitle>
+          <CardTitle className="text-sm">Brand Distribution (30d)</CardTitle>
         </CardHeader>
         <CardContent>
           <BrandPieChart data={brandDist} />
@@ -72,7 +72,7 @@ export function DashboardChartsGrid({
 
       <Card className="md:col-span-2 xl:col-span-1">
         <CardHeader>
-          <CardTitle className="text-[15px]">Month Comparison</CardTitle>
+          <CardTitle className="text-sm">Month Comparison</CardTitle>
         </CardHeader>
         <CardContent>
           <ReductionBarChart kpis={kpis} />

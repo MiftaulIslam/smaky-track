@@ -4,35 +4,31 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/src/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-150 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-interactive-glow focus-visible:ring-offset-2 focus-visible:ring-offset-midnight-base cursor-pointer select-none",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer select-none",
   {
     variants: {
       variant: {
-        // White pill — primary action
         default:
-          "bg-canvas-white text-storm-gray rounded-full hover:bg-ghost-white active:scale-95",
-        // Ghost — secondary action
+          "bg-primary text-primary-foreground rounded-full hover:bg-primary-hover shadow-[0_0_15px_var(--color-primary-glow)] hover:shadow-[0_0_25px_var(--color-primary-glow)] hover:-translate-y-0.5 active:translate-y-0",
+        secondary:
+          "bg-secondary text-secondary-foreground rounded-full hover:bg-surface-hover border border-border-subtle",
         ghost:
-          "bg-transparent text-canvas-white border border-ghost-white rounded-lg hover:bg-white/5 active:scale-95",
-        // Destructive
+          "bg-transparent text-foreground rounded-xl hover:bg-surface-hover active:scale-95",
         destructive:
-          "bg-destructive text-white rounded-full hover:bg-red-600 active:scale-95",
-        // Outline
+          "bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90 active:scale-95",
         outline:
-          "border border-gunmetal text-ghost-white rounded-lg bg-transparent hover:bg-white/5 active:scale-95",
-        // Link-like nav
-        link: "text-ghost-white underline-offset-4 hover:underline bg-transparent rounded-none p-0 h-auto",
-        // Glow accent
+          "border border-border-strong text-foreground rounded-xl bg-transparent hover:bg-surface hover:text-foreground active:scale-95 shadow-sm",
+        link: "text-foreground underline-offset-4 hover:underline bg-transparent rounded-none p-0 h-auto",
         accent:
-          "bg-interactive-glow text-white rounded-full hover:opacity-90 active:scale-95",
+          "bg-primary text-primary-foreground rounded-full hover:bg-primary/90 shadow-[0_0_20px_var(--color-primary-glow)] active:scale-95",
       },
       size: {
-        default: "h-9 px-5 py-2 text-[14px]",
-        sm: "h-7 px-3 text-[13px]",
-        lg: "h-11 px-7 text-[15px]",
-        xl: "h-14 px-8 text-[16px]",
+        default: "h-9 px-5 py-2",
+        sm: "h-8 px-4 text-xs",
+        lg: "h-11 px-8 text-base",
+        xl: "h-14 px-10 text-lg",
         icon: "h-9 w-9",
-        "icon-sm": "h-7 w-7",
+        "icon-sm": "h-8 w-8",
       },
     },
     defaultVariants: {

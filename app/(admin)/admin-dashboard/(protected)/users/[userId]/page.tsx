@@ -47,10 +47,10 @@ export default async function AdminUserDetailPage({
               Back to users
             </Link>
           </Button>
-          <h2 className="font-heading text-heading-sm font-semibold text-ghost-white">
+          <h2 className="font-heading text-heading-sm font-semibold text-foreground">
             {user.name ?? "Unnamed user"}
           </h2>
-          <p className="text-caption text-slate-text">{user.email}</p>
+          <p className="text-caption text-muted-foreground">{user.email}</p>
         </div>
         {user.isBlacklisted ? (
           <Badge variant="destructive">Blacklisted</Badge>
@@ -82,7 +82,7 @@ export default async function AdminUserDetailPage({
             <CardTitle>Moderation</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-caption text-slate-text">
+            <p className="text-caption text-muted-foreground">
               {user.isBlacklisted
                 ? `Blacklisted${user.blacklistReason ? `: ${user.blacklistReason}` : "."}`
                 : "User is currently active."}
@@ -113,22 +113,22 @@ export default async function AdminUserDetailPage({
         <CardContent className="p-0">
           <ul role="list">
             {recentSmokes.length === 0 ? (
-              <li className="px-6 py-5 text-caption text-slate-text">No smoke history for this user.</li>
+              <li className="px-6 py-5 text-caption text-muted-foreground">No smoke history for this user.</li>
             ) : (
               recentSmokes.map((entry, idx) => (
                 <li
                   key={entry.id}
                   className={`flex items-center justify-between px-6 py-3 ${
-                    idx < recentSmokes.length - 1 ? "border-b border-gunmetal/60" : ""
+                    idx < recentSmokes.length - 1 ? "border-b border-border/60" : ""
                   }`}
                 >
                   <div>
-                    <p className="text-caption font-medium text-ghost-white">{entry.brand.name}</p>
-                    <p className="text-[12px] text-slate-text">
+                    <p className="text-caption font-medium text-foreground">{entry.brand.name}</p>
+                    <p className="text-xs text-muted-foreground">
                       {new Date(entry.smokedAt).toLocaleString()}
                     </p>
                   </div>
-                  <p className="text-caption text-ghost-white">{formatBDT(entry.priceMinor)}</p>
+                  <p className="text-caption text-foreground">{formatBDT(entry.priceMinor)}</p>
                 </li>
               ))
             )}

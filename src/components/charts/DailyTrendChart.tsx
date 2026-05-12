@@ -26,13 +26,13 @@ function CustomTooltip(props: TooltipProps<number, string>) {
   };
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-gunmetal bg-[#0f0f0f] px-3 py-2 text-[13px] shadow-lg">
-      <p className="text-ash-text mb-1">
+    <div className="rounded-lg border border-border bg-background-secondary px-3 py-2 text-sm shadow-lg">
+      <p className="text-foreground-subtle mb-1">
         {label ? format(parseISO(label), "MMM d, yyyy") : ""}
       </p>
-      <p className="text-ghost-white font-medium">{payload[0]?.value} cigarettes</p>
+      <p className="text-foreground font-medium">{payload[0]?.value} cigarettes</p>
       {payload[1] && (
-        <p className="text-slate-text">{formatBDT(payload[1].value ?? 0)}</p>
+        <p className="text-muted-foreground">{formatBDT(payload[1].value ?? 0)}</p>
       )}
     </div>
   );

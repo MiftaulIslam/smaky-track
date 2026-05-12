@@ -36,7 +36,7 @@ export function ProfileForm({ initial, brands }: ProfileFormProps) {
   }, [state]);
 
   return (
-    <form action={formAction} className="space-y-4 border-t border-gunmetal pt-4">
+    <form action={formAction} className="space-y-4 border-t border-border pt-4">
       <div className="space-y-1.5">
         <Label htmlFor="name">Name</Label>
         <Input id="name" name="name" defaultValue={initial.name} required />
@@ -60,7 +60,7 @@ export function ProfileForm({ initial, brands }: ProfileFormProps) {
           id="defaultBrandId"
           name="defaultBrandId"
           defaultValue={initial.defaultBrandId ?? ""}
-          className="flex h-10 w-full rounded-lg border border-gunmetal bg-[rgba(255,255,255,0.04)] px-3 py-2 text-[14px] text-ghost-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-interactive-glow focus-visible:border-transparent"
+          className="flex h-10 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-transparent"
         >
           <option value="">Use recent smoke brand</option>
           {brands.map((brand) => (

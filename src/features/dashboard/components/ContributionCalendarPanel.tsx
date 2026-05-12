@@ -12,7 +12,7 @@ const ContributionCalendar = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-40 animate-pulse rounded-lg bg-white/5" aria-hidden />
+      <div className="h-40 animate-pulse rounded-lg bg-surface-hover" aria-hidden />
     ),
   }
 );

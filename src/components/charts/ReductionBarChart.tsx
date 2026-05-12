@@ -24,8 +24,8 @@ function CustomTooltip(props: TooltipProps<number, string>) {
   };
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-gunmetal bg-[#0f0f0f] px-3 py-2 text-[13px] shadow-lg">
-      <p className="text-ash-text mb-1">{label}</p>
+    <div className="rounded-lg border border-border bg-background-secondary px-3 py-2 text-sm shadow-lg">
+      <p className="text-foreground-subtle mb-1">{label}</p>
       {payload.map((p) => (
         <p key={p.name} style={{ color: p.color }} className="font-medium">
           {p.value} cigarettes

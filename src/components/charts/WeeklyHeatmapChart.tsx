@@ -46,7 +46,7 @@ export function WeeklyHeatmapChart({ data }: WeeklyHeatmapChartProps) {
           {displayHours.map((h) => (
             <div
               key={h}
-              className="text-[10px] text-slate-text"
+              className="text-[10px] text-muted-foreground"
               style={{ width: `${100 / 8}%` }}
             >
               {formatHour(h)}
@@ -56,7 +56,7 @@ export function WeeklyHeatmapChart({ data }: WeeklyHeatmapChartProps) {
 
         {DAYS.map((day, dow) => (
           <div key={dow} className="flex items-center gap-px mb-1">
-            <span className="w-10 text-[11px] text-slate-text shrink-0">{day}</span>
+            <span className="w-10 text-[11px] text-muted-foreground shrink-0">{day}</span>
             <div className="flex gap-px flex-1">
               {HOURS.map((hour) => {
                 const count = lookup.get(`${dow}-${hour}`) ?? 0;

@@ -14,11 +14,11 @@ export default async function AdminProtectedLayout({
 
   return (
     <div className="min-h-screen">
-      <header className="h-16 border-b border-gunmetal bg-[rgba(0,0,0,0.35)] backdrop-blur-[4px]">
+      <header className="h-16 border-b border-border bg-[rgba(0,0,0,0.35)] backdrop-blur-[4px]">
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 md:px-6">
           <div>
-            <p className="text-caption text-slate-text uppercase tracking-wider">Admin Console</p>
-            <h1 className="text-subheading font-heading font-semibold text-ghost-white">
+            <p className="text-caption text-muted-foreground uppercase tracking-wider">Admin Console</p>
+            <h1 className="text-subheading font-heading font-semibold text-foreground">
               Smaky Track Admin
             </h1>
           </div>

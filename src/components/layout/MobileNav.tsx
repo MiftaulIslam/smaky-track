@@ -12,11 +12,11 @@ export function MobileNav() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-white/5 transition-colors lg:hidden"
+        className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-surface-hover transition-colors lg:hidden"
         aria-label="Open navigation"
         aria-expanded={open}
       >
-        <Menu className="h-5 w-5 text-ghost-white" />
+        <Menu className="h-5 w-5 text-foreground" />
       </button>
 
       {/* Backdrop */}
@@ -42,10 +42,10 @@ export function MobileNav() {
           <Sidebar />
           <button
             onClick={() => setOpen(false)}
-            className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg hover:bg-white/5 transition-colors"
+            className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg hover:bg-surface-hover transition-colors"
             aria-label="Close navigation"
           >
-            <X className="h-4 w-4 text-ghost-white" />
+            <X className="h-4 w-4 text-foreground" />
           </button>
         </div>
       </div>

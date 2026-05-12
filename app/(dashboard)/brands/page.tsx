@@ -28,29 +28,29 @@ export default async function BrandsPage() {
   return (
     <div className="p-6 md:p-8 space-y-8">
       <div>
-        <h1 className="font-heading text-[24px] font-semibold text-ghost-white">
+        <h1 className="font-heading text-2xl font-semibold text-foreground">
           Brand Statistics
         </h1>
-        <p className="text-[14px] text-slate-text mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           Breakdown by cigarette brand
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card className="p-5">
-          <p className="text-[12px] font-medium text-slate-text uppercase tracking-wider mb-2">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
             Last 90 Days
           </p>
-          <p className="font-heading text-[22px] font-semibold text-ghost-white">{totalCount}</p>
+          <p className="font-heading text-[22px] font-semibold text-foreground">{totalCount}</p>
           <Badge variant="secondary" className="mt-2 text-[10px]">
             {packetsFromCigarettes(totalCount).toFixed(1)} packets
           </Badge>
         </Card>
         <Card className="p-5">
-          <p className="text-[12px] font-medium text-slate-text uppercase tracking-wider mb-2">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
             Total Spend
           </p>
-          <p className="font-heading text-[22px] font-semibold text-ghost-white">
+          <p className="font-heading text-[22px] font-semibold text-foreground">
             {formatBDT(totalSpend)}
           </p>
           <Badge variant="secondary" className="mt-2 text-[10px]">
@@ -58,10 +58,10 @@ export default async function BrandsPage() {
           </Badge>
         </Card>
         <Card className="p-5">
-          <p className="text-[12px] font-medium text-slate-text uppercase tracking-wider mb-2">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
             Active Brands
           </p>
-          <p className="font-heading text-[22px] font-semibold text-ghost-white">
+          <p className="font-heading text-[22px] font-semibold text-foreground">
             {brandDist90.length}
           </p>
           <Badge variant="secondary" className="mt-2 text-[10px]">
@@ -69,10 +69,10 @@ export default async function BrandsPage() {
           </Badge>
         </Card>
         <Card className="p-5">
-          <p className="text-[12px] font-medium text-slate-text uppercase tracking-wider mb-2">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
             Top Brand
           </p>
-          <p className="font-heading text-[22px] font-semibold text-ghost-white">
+          <p className="font-heading text-[22px] font-semibold text-foreground">
             {topBrand?.name ?? "—"}
           </p>
           <Badge variant="secondary" className="mt-2 text-[10px]">
@@ -104,8 +104,8 @@ export default async function BrandsPage() {
             <CardContent className="p-0">
               <div className="max-h-[320px] overflow-auto">
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-[#141414] text-slate-text">
-                    <tr className="border-b border-gunmetal">
+                  <thead className="sticky top-0 bg-[#141414] text-muted-foreground">
+                    <tr className="border-b border-border">
                       <th className="px-4 py-2 text-left font-medium">Brand</th>
                       <th className="px-4 py-2 text-right font-medium">Smokes</th>
                       <th className="px-4 py-2 text-right font-medium">Packets</th>
@@ -117,14 +117,14 @@ export default async function BrandsPage() {
                     {brandDist90.map((row) => {
                       const share = totalCount > 0 ? (row.count / totalCount) * 100 : 0;
                       return (
-                        <tr key={row.brandId} className="border-b border-gunmetal/60">
-                          <td className="px-4 py-2 text-ghost-white">{row.name}</td>
-                          <td className="px-4 py-2 text-right text-ash-text">{row.count}</td>
-                          <td className="px-4 py-2 text-right text-ash-text">
+                        <tr key={row.brandId} className="border-b border-border/60">
+                          <td className="px-4 py-2 text-foreground">{row.name}</td>
+                          <td className="px-4 py-2 text-right text-foreground-subtle">{row.count}</td>
+                          <td className="px-4 py-2 text-right text-foreground-subtle">
                             {packetsFromCigarettes(row.count).toFixed(1)}
                           </td>
-                          <td className="px-4 py-2 text-right text-ash-text">{share.toFixed(1)}%</td>
-                          <td className="px-4 py-2 text-right text-ghost-white">
+                          <td className="px-4 py-2 text-right text-foreground-subtle">{share.toFixed(1)}%</td>
+                          <td className="px-4 py-2 text-right text-foreground">
                             {formatBDT(row.spendMinor)}
                           </td>
                         </tr>

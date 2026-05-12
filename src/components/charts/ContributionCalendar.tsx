@@ -24,7 +24,7 @@ function getIntensityClass(count: number, max: number): string {
   if (pct < 0.25) return "bg-[rgba(107,98,242,0.25)] hover:bg-[rgba(107,98,242,0.35)]";
   if (pct < 0.5) return "bg-[rgba(107,98,242,0.5)] hover:bg-[rgba(107,98,242,0.6)]";
   if (pct < 0.75) return "bg-[rgba(107,98,242,0.7)] hover:bg-[rgba(107,98,242,0.8)]";
-  return "bg-[rgba(107,98,242,0.9)] hover:bg-interactive-glow";
+  return "bg-[rgba(107,98,242,0.9)] hover:bg-primary";
 }
 
 interface TooltipState {
@@ -117,11 +117,11 @@ export function ContributionCalendar({ initialYear, initialData }: ContributionC
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <div className="text-[13px] text-slate-text">
+        <div className="text-sm text-muted-foreground">
           Activity for {year}
         </div>
         <Select value={String(year)} onValueChange={(v) => setYear(Number(v))}>
-          <SelectTrigger className="w-24 h-8 text-[13px]">
+          <SelectTrigger className="w-24 h-8 text-sm">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -143,7 +143,7 @@ export function ContributionCalendar({ initialYear, initialData }: ContributionC
             {monthLabels.map(({ month, col }) => (
               <div
                 key={`${month}-${col}`}
-                className="text-[10px] text-slate-text absolute"
+                className="text-[10px] text-muted-foreground absolute"
                 style={{ left: `${26 + col * 14}px` }}
               >
                 {month}
@@ -158,7 +158,7 @@ export function ContributionCalendar({ initialYear, initialData }: ContributionC
               {DAYS_SHORT.map((d, i) => (
                 <div
                   key={i}
-                  className="text-[9px] text-slate-text w-[12px] h-[11px] flex items-center"
+                  className="text-[9px] text-muted-foreground w-[12px] h-[11px] flex items-center"
                 >
                   {i % 2 === 1 ? d : ""}
                 </div>
@@ -201,18 +201,18 @@ export function ContributionCalendar({ initialYear, initialData }: ContributionC
           {/* Floating tooltip */}
           {tooltip && (
             <div
-              className="fixed z-50 pointer-events-none rounded-lg border border-gunmetal bg-[#0f0f0f] p-3 text-[12px] shadow-xl"
+              className="fixed z-50 pointer-events-none rounded-lg border border-border bg-background-secondary p-3 text-xs shadow-xl"
               style={{ top: tooltip.y - 80, left: tooltip.x - 60 }}
             >
-              <p className="text-ash-text mb-1 font-medium">
+              <p className="text-foreground-subtle mb-1 font-medium">
                 {format(parseISO(tooltip.content.date), "MMMM d, yyyy")}
               </p>
-              <p className="text-ghost-white">
+              <p className="text-foreground">
                 {tooltip.content.count} cigarette{tooltip.content.count !== 1 ? "s" : ""}
               </p>
-              <p className="text-slate-text">{formatBDT(tooltip.content.spendMinor)}</p>
+              <p className="text-muted-foreground">{formatBDT(tooltip.content.spendMinor)}</p>
               {tooltip.content.brands.length > 0 && (
-                <p className="text-slate-text">{tooltip.content.brands.join(", ")}</p>
+                <p className="text-muted-foreground">{tooltip.content.brands.join(", ")}</p>
               )}
             </div>
           )}
@@ -220,7 +220,7 @@ export function ContributionCalendar({ initialYear, initialData }: ContributionC
       )}
 
       {/* Legend */}
-      <div className="flex items-center gap-2 text-[11px] text-slate-text">
+      <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
         <span>Less</span>
         {[0, 1, 2, 3, 4].map((level) => (
           <div

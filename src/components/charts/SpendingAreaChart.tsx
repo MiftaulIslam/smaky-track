@@ -25,13 +25,13 @@ function CustomTooltip(props: TooltipProps<number, string>) {
   };
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-gunmetal bg-[#0f0f0f] px-3 py-2 text-[13px] shadow-lg">
-      <p className="text-ash-text mb-1">{label}</p>
-      <p className="text-ghost-white font-medium">
+    <div className="rounded-lg border border-border bg-background-secondary px-3 py-2 text-sm shadow-lg">
+      <p className="text-foreground-subtle mb-1">{label}</p>
+      <p className="text-foreground font-medium">
         ৳{fromMinorUnits(payload[0]?.value ?? 0).toFixed(0)}
       </p>
       {payload[1] && (
-        <p className="text-slate-text">{payload[1].value} cigarettes</p>
+        <p className="text-muted-foreground">{payload[1].value} cigarettes</p>
       )}
     </div>
   );

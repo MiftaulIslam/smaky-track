@@ -26,11 +26,11 @@ function CustomTooltip(props: TooltipProps<number, string>) {
   if (!active || !payload?.length) return null;
   const item = payload[0];
   return (
-    <div className="rounded-lg border border-gunmetal bg-[#0f0f0f] px-3 py-2 text-[13px] shadow-lg">
-      <p className="text-ghost-white font-medium">{item?.name}</p>
-      <p className="text-ash-text">{item?.value} cigarettes</p>
+    <div className="rounded-lg border border-border bg-background-secondary px-3 py-2 text-sm shadow-lg">
+      <p className="text-foreground font-medium">{item?.name}</p>
+      <p className="text-foreground-subtle">{item?.value} cigarettes</p>
       {item?.payload && (
-        <p className="text-slate-text">{formatBDT(item.payload.spendMinor)}</p>
+        <p className="text-muted-foreground">{formatBDT(item.payload.spendMinor)}</p>
       )}
     </div>
   );
@@ -39,7 +39,7 @@ function CustomTooltip(props: TooltipProps<number, string>) {
 export function BrandPieChart({ data }: BrandPieChartProps) {
   if (!data.length) {
     return (
-      <div className="flex h-[200px] items-center justify-center text-[14px] text-slate-text">
+      <div className="flex h-[200px] items-center justify-center text-sm text-muted-foreground">
         No data yet
       </div>
     );

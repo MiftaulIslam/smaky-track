@@ -24,10 +24,10 @@ export default async function AdminDashboardPage({
     <div className="space-y-6">
       <section className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-heading-sm font-heading font-semibold text-ghost-white">
+          <h2 className="text-heading-sm font-heading font-semibold text-foreground">
             User Management
           </h2>
-          <p className="text-caption text-slate-text">
+          <p className="text-caption text-muted-foreground">
             Browse users, inspect their stats, and manage account status.
           </p>
         </div>

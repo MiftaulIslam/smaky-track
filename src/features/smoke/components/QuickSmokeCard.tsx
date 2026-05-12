@@ -85,8 +85,8 @@ export function QuickSmokeCard({
 
       <CardHeader className="relative">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-interactive-glow/15 border border-interactive-glow/25">
-            <Cigarette className="h-4 w-4 text-interactive-glow" aria-hidden="true" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 border border-primary/25">
+            <Cigarette className="h-4 w-4 text-primary" aria-hidden="true" />
           </div>
           <CardTitle>Quick Smoke</CardTitle>
         </div>
@@ -96,7 +96,7 @@ export function QuickSmokeCard({
         <div className="space-y-2">
           <label
             htmlFor="brand-select"
-            className="text-[13px] font-medium text-ash-text"
+            className="text-sm font-medium text-foreground-subtle"
           >
             Select Brand
           </label>
@@ -112,7 +112,7 @@ export function QuickSmokeCard({
                 <SelectItem key={brand.id} value={brand.id}>
                   <span className="flex items-center justify-between w-full gap-8">
                     <span>{brand.name}</span>
-                    <span className="text-slate-text text-[12px]">
+                    <span className="text-muted-foreground text-xs">
                       {formatBDT(brand.defaultPriceMinor)}
                     </span>
                   </span>
@@ -123,9 +123,9 @@ export function QuickSmokeCard({
         </div>
 
         {selectedBrand && (
-          <div className="flex items-center justify-between text-[13px]">
-            <span className="text-slate-text">Cost per cigarette</span>
-            <span className="text-ghost-white font-medium">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">Cost per cigarette</span>
+            <span className="text-foreground font-medium">
               {formatBDT(selectedBrand.defaultPriceMinor)}
             </span>
           </div>

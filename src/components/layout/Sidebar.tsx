@@ -44,7 +44,7 @@ export function Sidebar({ className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "flex flex-col h-full w-60 shrink-0 border-r border-gunmetal bg-[rgba(0,0,0,0.3)] backdrop-blur-[4px]",
+        "flex flex-col h-full w-60 shrink-0 border-r border-border bg-background/80 backdrop-blur-[4px]",
         className
       )}
       aria-label="Main navigation"
@@ -84,14 +84,14 @@ function SidebarLink({ href, label, icon: Icon, active }: SidebarLinkProps) {
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2 text-[14px] transition-colors",
+        "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
         active
-          ? "bg-white/10 text-canvas-white font-medium"
-          : "text-ash-text hover:bg-white/5 hover:text-ghost-white"
+          ? "bg-surface-elevated text-foreground font-medium"
+          : "text-foreground-subtle hover:bg-surface-hover hover:text-foreground"
       )}
       aria-current={active ? "page" : undefined}
     >
-      <Icon className={cn("h-4 w-4 shrink-0", active ? "text-canvas-white" : "text-slate-text")} aria-hidden="true" />
+      <Icon className={cn("h-4 w-4 shrink-0", active ? "text-foreground" : "text-muted-foreground")} aria-hidden="true" />
       {label}
     </Link>
   );

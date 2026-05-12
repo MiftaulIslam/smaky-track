@@ -39,8 +39,8 @@ export default async function ProfilePage() {
   return (
     <div className="p-6 md:p-8 space-y-8 max-w-2xl">
       <div>
-        <h1 className="font-heading text-[24px] font-semibold text-ghost-white">Profile</h1>
-        <p className="text-[14px] text-slate-text mt-1">Your account information</p>
+        <h1 className="font-heading text-2xl font-semibold text-foreground">Profile</h1>
+        <p className="text-sm text-muted-foreground mt-1">Your account information</p>
       </div>
 
       <Card>
@@ -51,32 +51,32 @@ export default async function ProfilePage() {
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16">
               <AvatarImage src={user.image ?? undefined} alt={user.name ?? "User"} />
-              <AvatarFallback className="text-[20px]">{initials}</AvatarFallback>
+              <AvatarFallback className="text-xl">{initials}</AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-heading text-[18px] font-semibold text-ghost-white">
+              <p className="font-heading text-lg font-semibold text-foreground">
                 {user.name ?? "No name set"}
               </p>
-              <p className="text-[14px] text-slate-text">{user.email}</p>
+              <p className="text-sm text-muted-foreground">{user.email}</p>
             </div>
           </div>
 
-          <div className="space-y-3 border-t border-gunmetal pt-4">
+          <div className="space-y-3 border-t border-border pt-4">
             <div className="flex items-center justify-between">
-              <span className="text-[14px] text-ash-text">Name</span>
-              <span className="text-[14px] text-ghost-white">{user.name ?? "—"}</span>
+              <span className="text-sm text-foreground-subtle">Name</span>
+              <span className="text-sm text-foreground">{user.name ?? "—"}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[14px] text-ash-text">Email</span>
-              <span className="text-[14px] text-ghost-white">{user.email}</span>
+              <span className="text-sm text-foreground-subtle">Email</span>
+              <span className="text-sm text-foreground">{user.email}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[14px] text-ash-text">Account type</span>
+              <span className="text-sm text-foreground-subtle">Account type</span>
               <Badge variant="accent">Tracker</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[14px] text-ash-text">Default brand</span>
-              <span className="text-[14px] text-ghost-white">
+              <span className="text-sm text-foreground-subtle">Default brand</span>
+              <span className="text-sm text-foreground">
                 {brands.find((brand) => brand.id === settings?.defaultBrandId)?.name ?? "Recent smoke"}
               </span>
             </div>

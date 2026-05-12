@@ -103,16 +103,16 @@ export function KpiCards({ kpis, lastSmokeAt }: KpiCardsProps) {
           <Card key={card.label} className="p-5">
             <div className="flex items-start justify-between gap-2">
               <div className="space-y-1">
-                <p className="text-[12px] font-medium text-slate-text uppercase tracking-wider">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   {card.label}
                 </p>
-                <p className="font-heading text-[24px] font-semibold text-ghost-white leading-none">
+                <p className="font-heading text-2xl font-semibold text-foreground leading-none">
                   {card.value}
                 </p>
-                <p className="text-[12px] text-ash-text">{card.subvalue}</p>
+                <p className="text-xs text-foreground-subtle">{card.subvalue}</p>
               </div>
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-white/5 border border-gunmetal">
-                <card.icon className="h-4 w-4 text-slate-text" aria-hidden="true" />
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-hover border border-border">
+                <card.icon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
               </div>
             </div>
           </Card>
@@ -122,18 +122,18 @@ export function KpiCards({ kpis, lastSmokeAt }: KpiCardsProps) {
         <Card className="p-5 col-span-2 sm:col-span-1">
           <div className="flex items-start justify-between gap-2">
             <div className="space-y-1">
-              <p className="text-[12px] font-medium text-slate-text uppercase tracking-wider">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Last Smoked
               </p>
               <LastSmokeRelative date={lastSmokeAt} />
               {lastSmokeAt && (
-                <p className="text-[12px] text-ash-text">
+                <p className="text-xs text-foreground-subtle">
                   {lastSmokeAt.toLocaleDateString()}
                 </p>
               )}
             </div>
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-white/5 border border-gunmetal">
-              <Clock className="h-4 w-4 text-slate-text" aria-hidden="true" />
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-hover border border-border">
+              <Clock className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             </div>
           </div>
         </Card>

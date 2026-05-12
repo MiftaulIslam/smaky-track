@@ -40,13 +40,13 @@ export function SignupForm() {
   }, [state, router]);
 
   return (
-    <Card className="border-gunmetal bg-[rgba(0,0,0,0.4)] backdrop-blur-[4px]">
+    <Card className="border-border bg-[rgba(0,0,0,0.4)] backdrop-blur-[4px]">
       <CardHeader className="pb-4">
         <div className="flex items-center gap-2 mb-2">
-          <div className="h-7 w-7 rounded-lg bg-interactive-glow/20 border border-interactive-glow/30 flex items-center justify-center">
-            <span className="text-[14px]">🚬</span>
+          <div className="h-7 w-7 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center">
+            <span className="text-sm">🚬</span>
           </div>
-          <span className="font-heading text-[13px] font-medium text-ash-text tracking-wide">
+          <span className="font-heading text-sm font-medium text-foreground-subtle tracking-wide">
             SMAKY TRACK
           </span>
         </div>
@@ -66,10 +66,10 @@ export function SignupForm() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-gunmetal" />
+            <span className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center">
-            <span className="bg-[#0d0d0d] px-3 text-[12px] text-slate-text">
+            <span className="bg-background px-3 text-xs text-muted-foreground">
               or register with email
             </span>
           </div>
@@ -101,9 +101,9 @@ export function SignupForm() {
           </Button>
         </form>
 
-        <p className="text-center text-[13px] text-slate-text">
+        <p className="text-center text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link href="/login" className="text-ghost-white hover:text-canvas-white underline underline-offset-4">
+          <Link href="/login" className="text-foreground hover:text-foreground underline underline-offset-4">
             Sign in
           </Link>
         </p>

@@ -31,8 +31,8 @@ export function AdminLoginForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <div className="mb-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-interactive-glow/30 bg-interactive-glow/15">
-          <ShieldCheck className="h-5 w-5 text-interactive-glow" aria-hidden="true" />
+        <div className="mb-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-primary/30 bg-primary/15">
+          <ShieldCheck className="h-5 w-5 text-primary" aria-hidden="true" />
         </div>
         <CardTitle>Admin Access</CardTitle>
         <CardDescription>Enter the admin password to access the dashboard</CardDescription>

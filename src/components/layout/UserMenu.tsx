@@ -37,12 +37,12 @@ export function UserMenu({ user }: UserMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-interactive-glow">
+        <button className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           <Avatar className="h-7 w-7">
             <AvatarImage src={user.image ?? undefined} alt={user.name ?? "User"} />
             <AvatarFallback>{getInitials(user.name, user.email)}</AvatarFallback>
           </Avatar>
-          <span className="text-[13px] text-ghost-white font-medium max-w-[120px] truncate hidden sm:block">
+          <span className="text-sm text-foreground font-medium max-w-[120px] truncate hidden sm:block">
             {user.name ?? user.email}
           </span>
         </button>
@@ -51,10 +51,10 @@ export function UserMenu({ user }: UserMenuProps) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col gap-0.5">
             {user.name && (
-              <span className="text-[13px] font-medium text-ghost-white">{user.name}</span>
+              <span className="text-sm font-medium text-foreground">{user.name}</span>
             )}
             {user.email && (
-              <span className="text-[12px] text-slate-text truncate">{user.email}</span>
+              <span className="text-xs text-muted-foreground truncate">{user.email}</span>
             )}
           </div>
         </DropdownMenuLabel>

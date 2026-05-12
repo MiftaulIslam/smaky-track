@@ -3,19 +3,9 @@ import { Geist, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/src/providers";
 import { DEFAULT_TITLE, DEFAULT_DESCRIPTION, APP_URL } from "@/src/lib/seo";
+import { cn } from "@/lib/utils";
 
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const viewport: Viewport = {
   themeColor: "#0a0a0a",
@@ -70,10 +60,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${dmSans.variable} dark h-full`}
+      className={cn("dark", "h-full", "font-sans", geist.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-midnight-base text-ghost-white antialiased">
+      <body className="min-h-full bg-background text-foreground antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

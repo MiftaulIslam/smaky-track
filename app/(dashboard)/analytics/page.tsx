@@ -43,8 +43,8 @@ export default async function AnalyticsPage() {
   return (
     <div className="p-6 md:p-8 space-y-10">
       <div>
-        <h1 className="font-heading text-[24px] font-semibold text-ghost-white">Analytics</h1>
-        <p className="text-[14px] text-slate-text mt-1">
+        <h1 className="font-heading text-2xl font-semibold text-foreground">Analytics</h1>
+        <p className="text-sm text-muted-foreground mt-1">
           Deep dive into your smoking patterns and trends
         </p>
       </div>
@@ -52,7 +52,7 @@ export default async function AnalyticsPage() {
       <section aria-labelledby="projections-heading">
         <h2
           id="projections-heading"
-          className="font-heading text-[16px] font-semibold text-ghost-white mb-4"
+          className="font-heading text-base font-semibold text-foreground mb-4"
         >
           Projections
         </h2>
@@ -80,10 +80,10 @@ export default async function AnalyticsPage() {
             },
           ].map((item) => (
             <Card key={item.label} className="p-5">
-              <p className="text-[12px] font-medium text-slate-text uppercase tracking-wider mb-2">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                 {item.label}
               </p>
-              <p className="font-heading text-[22px] font-semibold text-ghost-white">{item.value}</p>
+              <p className="font-heading text-[22px] font-semibold text-foreground">{item.value}</p>
               <Badge variant="secondary" className="mt-2 text-[10px]">
                 {item.badge}
               </Badge>

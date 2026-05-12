@@ -195,7 +195,7 @@ export function DashboardLiveSection({
         />
 
         {recentSmokesWithFallback.length === 0 ? (
-          <p className="text-[14px] text-slate-text">
+          <p className="text-sm text-muted-foreground">
             No smokes logged yet. Hit &quot;Smoke Now&quot; to get started!
           </p>
         ) : (
@@ -206,22 +206,22 @@ export function DashboardLiveSection({
                   <li
                     key={entry.id}
                     className={`flex items-center justify-between px-6 py-3 ${
-                      idx < recentSmokesWithFallback.length - 1 ? "border-b border-gunmetal" : ""
+                      idx < recentSmokesWithFallback.length - 1 ? "border-b border-border" : ""
                     }`}
                   >
                     <div>
-                      <span className="text-[14px] font-medium text-ghost-white">
+                      <span className="text-sm font-medium text-foreground">
                         {entry.brand.name}
                       </span>
                       {entry.note && (
-                        <p className="text-[12px] text-slate-text">{entry.note}</p>
+                        <p className="text-xs text-muted-foreground">{entry.note}</p>
                       )}
                     </div>
                     <div className="text-right">
-                      <p className="text-[14px] text-ghost-white">
+                      <p className="text-sm text-foreground">
                         {formatBDT(entry.priceMinor)}
                       </p>
-                      <p className="text-[12px] text-slate-text">
+                      <p className="text-xs text-muted-foreground">
                         {format(entry.smokedAt, "MMM d, h:mm a")}
                       </p>
                     </div>

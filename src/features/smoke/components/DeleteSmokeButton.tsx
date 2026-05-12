@@ -43,7 +43,7 @@ export function DeleteSmokeButton({ entryId, onDeleted }: DeleteSmokeButtonProps
         <Button
           variant="ghost"
           size="icon-sm"
-          className="text-slate-text hover:text-red-400"
+          className="text-muted-foreground hover:text-red-400"
           aria-label="Delete smoke entry"
         >
           <Trash2 className="h-3.5 w-3.5" />

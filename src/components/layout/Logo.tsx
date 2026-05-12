@@ -11,13 +11,13 @@ export function Logo({ collapsed }: LogoProps) {
       className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
       aria-label="Smaky Track home"
     >
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-interactive-glow/20 border border-interactive-glow/30">
-        <span className="text-[16px] leading-none" role="img" aria-label="cigarette">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/20 border border-primary/30">
+        <span className="text-base leading-none" role="img" aria-label="cigarette">
           🚬
         </span>
       </div>
       {!collapsed && (
-        <span className="font-heading text-[15px] font-semibold text-ghost-white tracking-wide">
+        <span className="font-heading text-sm font-semibold text-foreground tracking-wide">
           Smaky Track
         </span>
       )}

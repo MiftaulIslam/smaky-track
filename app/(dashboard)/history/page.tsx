@@ -34,10 +34,10 @@ export default async function HistoryPage() {
     <div className="p-6 md:p-8 space-y-8">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="font-heading text-[24px] font-semibold text-ghost-white">
+          <h1 className="font-heading text-2xl font-semibold text-foreground">
             Smoke History
           </h1>
-          <p className="text-[14px] text-slate-text mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             Your last 50 entries
           </p>
         </div>
@@ -56,9 +56,9 @@ export default async function HistoryPage() {
             .sort(([a], [b]) => (a > b ? -1 : 1))
             .map(([dateKey, dayEntries]) => (
               <section key={dateKey} aria-label={`Entries for ${dateKey}`}>
-                <h2 className="text-[13px] font-semibold text-ash-text mb-2 uppercase tracking-wider">
+                <h2 className="text-sm font-semibold text-foreground-subtle mb-2 uppercase tracking-wider">
                   {format(new Date(dateKey + "T00:00:00"), "EEEE, MMMM d, yyyy")}
-                  <span className="ml-2 text-slate-text font-normal">
+                  <span className="ml-2 text-muted-foreground font-normal">
                     {dayEntries.length} smoke{dayEntries.length > 1 ? "s" : ""} ·{" "}
                     {formatBDT(dayEntries.reduce((s, e) => s + e.priceMinor, 0))}
                   </span>
@@ -69,28 +69,28 @@ export default async function HistoryPage() {
                       {dayEntries.map((entry, idx) => (
                         <li
                           key={entry.id}
-                          className={`flex items-center justify-between px-5 py-3 ${idx < dayEntries.length - 1 ? "border-b border-gunmetal" : ""}`}
+                          className={`flex items-center justify-between px-5 py-3 ${idx < dayEntries.length - 1 ? "border-b border-border" : ""}`}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 shrink-0">
-                              <span className="text-[14px]" role="img" aria-label="cigarette">🚬</span>
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-hover shrink-0">
+                              <span className="text-sm" role="img" aria-label="cigarette">🚬</span>
                             </div>
                             <div>
-                              <p className="text-[14px] font-medium text-ghost-white">
+                              <p className="text-sm font-medium text-foreground">
                                 {entry.brand.name}
                               </p>
                               {entry.note && (
-                                <p className="text-[12px] text-slate-text">{entry.note}</p>
+                                <p className="text-xs text-muted-foreground">{entry.note}</p>
                               )}
                             </div>
                           </div>
 
                           <div className="flex items-center gap-4">
                             <div className="text-right hidden sm:block">
-                              <p className="text-[14px] text-ghost-white font-medium">
+                              <p className="text-sm text-foreground font-medium">
                                 {formatBDT(entry.priceMinor)}
                               </p>
-                              <p className="text-[12px] text-slate-text">
+                              <p className="text-xs text-muted-foreground">
                                 {format(entry.smokedAt, "h:mm a")}
                               </p>
                             </div>
@@ -106,7 +106,7 @@ export default async function HistoryPage() {
         </div>
       )}
 
-      <p className="text-[13px] text-slate-text text-center">
+      <p className="text-sm text-muted-foreground text-center">
         Showing last 50 entries. Advanced filtering coming soon.
       </p>
     </div>

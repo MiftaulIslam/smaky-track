@@ -8,12 +8,12 @@ const brands = [
   { slug: "lucky-strike", name: "Lucky Strike", defaultPriceMinor: 1200, sortOrder: 2 },
   { slug: "gold-leaf", name: "Gold Leaf", defaultPriceMinor: 1500, sortOrder: 3 },
   { slug: "marlboro", name: "Marlboro", defaultPriceMinor: 2000, sortOrder: 4 },
-  { slug: "bs", name: "B&S", defaultPriceMinor: 2000, sortOrder: 5 },
+  { slug: "bs", name: "B&H", defaultPriceMinor: 2000, sortOrder: 5 },
 ];
 
 async function seed() {
   const url = process.env.DATABASE_URL;
-  if (!url) throw new Error("DATABASE_URL is not set");
+  if (!url) throw new Error("DATABASE_8URL is not set");
 
   const sql = neon(url);
   const db = drizzle(sql, { schema });

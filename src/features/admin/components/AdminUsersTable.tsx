@@ -39,8 +39,8 @@ export function AdminUsersTable({ rows, search, page, totalPages }: AdminUsersTa
       <CardContent className="p-0">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[880px] text-sm">
-            <thead className="bg-[rgba(0,0,0,0.35)] text-slate-text">
-              <tr className="border-y border-gunmetal">
+            <thead className="bg-[rgba(0,0,0,0.35)] text-muted-foreground">
+              <tr className="border-y border-border">
                 <th className="px-4 py-3 text-left font-medium">User</th>
                 <th className="px-4 py-3 text-left font-medium">Status</th>
                 <th className="px-4 py-3 text-right font-medium">Total smokes</th>
@@ -53,17 +53,17 @@ export function AdminUsersTable({ rows, search, page, totalPages }: AdminUsersTa
             <tbody>
               {rows.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-caption text-slate-text">
+                  <td colSpan={7} className="px-4 py-8 text-center text-caption text-muted-foreground">
                     No users found for this filter.
                   </td>
                 </tr>
               ) : (
                 rows.map((user) => (
-                  <tr key={user.id} className="border-b border-gunmetal/60">
+                  <tr key={user.id} className="border-b border-border/60">
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-medium text-ghost-white">{user.name ?? "Unnamed user"}</p>
-                        <p className="text-caption text-slate-text">{user.email}</p>
+                        <p className="font-medium text-foreground">{user.name ?? "Unnamed user"}</p>
+                        <p className="text-caption text-muted-foreground">{user.email}</p>
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -73,16 +73,16 @@ export function AdminUsersTable({ rows, search, page, totalPages }: AdminUsersTa
                         <Badge variant="accent">Active</Badge>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-right text-ash-text">{user.totalSmokes}</td>
-                    <td className="px-4 py-3 text-right text-ghost-white">
+                    <td className="px-4 py-3 text-right text-foreground-subtle">{user.totalSmokes}</td>
+                    <td className="px-4 py-3 text-right text-foreground">
                       {formatBDT(user.totalSpendMinor)}
                     </td>
-                    <td className="px-4 py-3 text-caption text-ash-text">
+                    <td className="px-4 py-3 text-caption text-foreground-subtle">
                       {user.lastSmokeAt
                         ? formatDistanceToNow(new Date(user.lastSmokeAt), { addSuffix: true })
                         : "No activity"}
                     </td>
-                    <td className="px-4 py-3 text-caption text-ash-text">
+                    <td className="px-4 py-3 text-caption text-foreground-subtle">
                       {formatDistanceToNow(new Date(user.createdAt), { addSuffix: true })}
                     </td>
                     <td className="px-4 py-3">
@@ -118,7 +118,7 @@ export function AdminUsersTable({ rows, search, page, totalPages }: AdminUsersTa
 
         {totalPages > 1 && (
           <div className="flex items-center justify-between px-6 py-4">
-            <p className="text-caption text-slate-text">
+            <p className="text-caption text-muted-foreground">
               Page {page} of {totalPages}
             </p>
             <div className="flex items-center gap-2">

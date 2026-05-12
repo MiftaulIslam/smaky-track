@@ -56,10 +56,10 @@ export default async function DashboardPage() {
   return (
     <div className="p-6 md:p-8 space-y-10">
       <div>
-        <h1 className="font-heading text-[24px] font-semibold text-ghost-white">
+        <h1 className="font-heading text-2xl font-semibold text-foreground">
           Dashboard
         </h1>
-        <p className="text-[14px] text-slate-text mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           Welcome back, {session.user.name?.split(" ")[0] ?? "there"} 👋
         </p>
       </div>

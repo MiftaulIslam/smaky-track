@@ -10,7 +10,7 @@ export function LastSmokeRelative({ date }: LastSmokeRelativeProps) {
   const label = useRelativeTime(date);
 
   return (
-    <p className="font-heading text-[20px] font-semibold text-ghost-white leading-none">
+    <p className="font-heading text-xl font-semibold text-foreground leading-none">
       {label}
     </p>
   );
