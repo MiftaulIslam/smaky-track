@@ -9,14 +9,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/src/components/ui/button";
-import { HeroStatsCarousel } from "./hero-stats";
-
-const stats = [
-  ["12k+", "Active users"],
-  ["2.4M", "Logs recorded"],
-  ["$180k", "Spending tracked"],
-  ["−31%", "Avg. reduction"],
-];
+import { HeroStatsCarousel, type HeroStat } from "./hero-stats";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -25,15 +18,17 @@ const fadeUp = {
     y: 0,
     transition: {
       duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
 };
 
 export function Hero({
   isLoggedIn,
+  dynamicStats,
 }: {
   isLoggedIn: boolean;
+  dynamicStats?: HeroStat[];
 }) {
   return (
     <section
@@ -276,7 +271,7 @@ export function Hero({
             <span>Setup in 60 seconds</span>
           </motion.div>
 
-          <HeroStatsCarousel />
+          <HeroStatsCarousel dynamicStats={dynamicStats} />
 
           {/* Stats */}
           {/* <motion.div

@@ -1,31 +1,37 @@
-import React from 'react'
+import React from "react";
 
 export const BrandBar = ({
-    name,
-    value,
-    color,
+  name,
+  value,
+  color,
 }: {
-    name: string;
-    value: number;
-    color?: string;
+  name: string;
+  value: number;
+  color?: string;
 }) => {
-    return (
-        <div className="flex items-center gap-2 text-sm">
-            <span className="w-20 text-foreground-subtle">{name}</span>
+  const accent = color ?? "var(--color-primary)";
 
-            <div className="flex-1 h-2 bg-surface-hover rounded-full overflow-hidden">
-                <div
-                    className="h-full rounded-full"
-                    style={{
-                        width: `${value}%`,
-                        background: color ?? "var(--primary)",
-                    }}
-                />
-            </div>
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between text-xs">
+        <span className="font-medium text-foreground">{name}</span>
+        <span className="font-semibold tabular-nums" style={{ color: accent }}>
+          {value}%
+        </span>
+      </div>
 
-            <span className="w-10 text-right text-foreground-subtle">
-                {value}%
-            </span>
-        </div>
-    )
-}
+      <div className="relative h-2 w-full overflow-hidden rounded-full bg-surface-elevated">
+        {/* glow shadow behind the fill */}
+        <div
+          className="absolute inset-y-0 left-0 rounded-full blur-sm opacity-50"
+          style={{ width: `${value}%`, background: accent }}
+        />
+        {/* solid fill */}
+        <div
+          className="absolute inset-y-0 left-0 rounded-full"
+          style={{ width: `${value}%`, background: accent }}
+        />
+      </div>
+    </div>
+  );
+};

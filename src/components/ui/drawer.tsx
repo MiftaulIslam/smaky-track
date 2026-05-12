@@ -34,23 +34,29 @@ const DrawerOverlay = React.forwardRef<
 ))
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
+type DrawerContentProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Content
+> & {
+  direction?: "bottom" | "right";
+};
+
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  DrawerContentProps
+>(({ className, children, direction = "bottom", ...props }, ref) => (
   <DrawerPortal>
     <DrawerOverlay />
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
         "fixed z-50 flex h-auto flex-col border-border bg-background",
-        (!props.direction || props.direction === "bottom") && "inset-x-0 bottom-0 mt-24 rounded-t-[10px] border",
-        props.direction === "right" && "inset-y-0 right-0 h-full w-3/4 max-w-sm border-l sm:max-w-sm",
+        (direction === "bottom") && "inset-x-0 bottom-0 mt-24 rounded-t-[10px] border",
+        direction === "right" && "inset-y-0 right-0 h-full w-3/4 max-w-sm border-l sm:max-w-sm",
         className
       )}
       {...props}
     >
-      {(!props.direction || props.direction === "bottom") && (
+      {direction === "bottom" && (
         <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-surface" />
       )}
       {children}
