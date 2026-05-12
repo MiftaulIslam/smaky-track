@@ -152,6 +152,7 @@ export function DashboardLiveSection({
 
       <div className="grid gap-6 lg:grid-cols-3">
         <QuickSmokeCard
+          key={defaultBrandId ?? "dashboard-default-brand"}
           brands={brands}
           defaultBrandId={defaultBrandId}
           onOptimisticLog={applyOptimisticSmoke}

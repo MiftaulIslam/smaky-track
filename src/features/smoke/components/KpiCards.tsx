@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/src/components/ui/card";
 import { formatBDT } from "@/src/lib/money";
+import { packetsFromCigarettes } from "@/src/lib/smoking";
 import type { KpiData } from "../queries";
 import { LastSmokeRelative } from "./LastSmokeRelative";
 
@@ -27,28 +28,28 @@ export function KpiCards({ kpis, lastSmokeAt }: KpiCardsProps) {
     {
       label: "Today",
       value: kpis.today.count.toString(),
-      subvalue: formatBDT(kpis.today.spendMinor),
+      subvalue: `${formatBDT(kpis.today.spendMinor)} · ${packetsFromCigarettes(kpis.today.count).toFixed(1)} packets`,
       icon: Cigarette,
       description: "cigarettes",
     },
     {
       label: "This Week",
       value: kpis.week.count.toString(),
-      subvalue: formatBDT(kpis.week.spendMinor),
+      subvalue: `${formatBDT(kpis.week.spendMinor)} · ${packetsFromCigarettes(kpis.week.count).toFixed(1)} packets`,
       icon: BarChart3,
       description: "cigarettes",
     },
     {
       label: "This Month",
       value: kpis.month.count.toString(),
-      subvalue: formatBDT(kpis.month.spendMinor),
+      subvalue: `${formatBDT(kpis.month.spendMinor)} · ${packetsFromCigarettes(kpis.month.count).toFixed(1)} packets`,
       icon: Cigarette,
       description: "cigarettes",
     },
     {
       label: "This Year",
       value: kpis.year.count.toString(),
-      subvalue: formatBDT(kpis.year.spendMinor),
+      subvalue: `${formatBDT(kpis.year.spendMinor)} · ${packetsFromCigarettes(kpis.year.count).toFixed(1)} packets`,
       icon: Cigarette,
       description: "cigarettes",
     },

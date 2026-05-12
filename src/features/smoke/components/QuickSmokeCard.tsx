@@ -36,9 +36,12 @@ export function QuickSmokeCard({
   onRollback,
   onSettled,
 }: QuickSmokeCardProps) {
-  const [selectedBrandId, setSelectedBrandId] = useState(
-    defaultBrandId ?? brands[0]?.id ?? ""
-  );
+  const fallbackBrandId = brands[0]?.id ?? "";
+  const initialBrandId =
+    defaultBrandId && brands.some((brand) => brand.id === defaultBrandId)
+      ? defaultBrandId
+      : fallbackBrandId;
+  const [selectedBrandId, setSelectedBrandId] = useState(initialBrandId);
 
   const selectedBrand = brands.find((b) => b.id === selectedBrandId);
 

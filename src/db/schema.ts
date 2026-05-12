@@ -144,6 +144,7 @@ export const userSettings = pgTable("user_settings", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" })
     .unique(),
+  defaultBrandId: text("default_brand_id").references(() => cigaretteBrands.id),
   currency: text("currency").notNull().default("BDT"),
   dailyGoal: integer("daily_goal"),
   timezone: text("timezone").notNull().default("UTC"),
@@ -208,6 +209,10 @@ export const userSettingsRelations = relations(userSettings, ({ one }) => ({
   user: one(users, {
     fields: [userSettings.userId],
     references: [users.id],
+  }),
+  defaultBrand: one(cigaretteBrands, {
+    fields: [userSettings.defaultBrandId],
+    references: [cigaretteBrands.id],
   }),
 }));
 

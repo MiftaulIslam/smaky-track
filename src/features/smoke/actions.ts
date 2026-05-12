@@ -44,6 +44,8 @@ export async function logSmokeAction(
   revalidatePath("/history");
   revalidatePath("/analytics");
   revalidatePath("/calendar");
+  revalidatePath("/spending");
+  revalidatePath("/brands");
 
   return { success: true, id: entry.id };
 }
@@ -71,6 +73,8 @@ export async function deleteSmokeAction(entryId: string): Promise<SmokeActionRes
   revalidatePath("/history");
   revalidatePath("/analytics");
   revalidatePath("/calendar");
+  revalidatePath("/spending");
+  revalidatePath("/brands");
 
   return { success: true };
 }
@@ -115,6 +119,8 @@ export async function updateSmokeAction(
   revalidatePath("/history");
   revalidatePath("/analytics");
   revalidatePath("/calendar");
+  revalidatePath("/spending");
+  revalidatePath("/brands");
 
   return { success: true };
 }

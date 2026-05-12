@@ -1,0 +1,2 @@
+ALTER TABLE "user_settings" ADD COLUMN "default_brand_id" text;--> statement-breakpoint
+ALTER TABLE "user_settings" ADD CONSTRAINT "user_settings_default_brand_id_cigarette_brands_id_fk" FOREIGN KEY ("default_brand_id") REFERENCES "public"."cigarette_brands"("id") ON DELETE no action ON UPDATE no action;

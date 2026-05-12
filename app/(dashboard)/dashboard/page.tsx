@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { auth } from "@/src/auth";
 import { redirect } from "next/navigation";
+import { db } from "@/src/db";
+import { userSettings } from "@/src/db/schema";
+import { eq } from "drizzle-orm";
 import {
   getKpis,
   getLastSmokeAt,
@@ -29,7 +32,7 @@ export default async function DashboardPage() {
   const userId = session.user.id;
   const currentYear = new Date().getFullYear();
 
-  const [kpis, lastSmokeAt, brands, daily, monthly, brandDist, calendarData, recentSmokes] =
+  const [kpis, lastSmokeAt, brands, daily, monthly, brandDist, calendarData, recentSmokes, settings] =
     await Promise.all([
       getKpis(userId),
       getLastSmokeAt(userId),
@@ -39,9 +42,16 @@ export default async function DashboardPage() {
       getBrandDistribution(userId, 30),
       getCalendarData(userId, currentYear),
       getRecentSmokes(userId, 20),
+      db.query.userSettings.findFirst({
+        where: eq(userSettings.userId, userId),
+      }),
     ]);
 
   const lastBrandId = recentSmokes[0]?.brand.id;
+  const hasDefaultBrand = brands.some((brand) => brand.id === settings?.defaultBrandId);
+  const preferredBrandId = hasDefaultBrand
+    ? (settings?.defaultBrandId ?? undefined)
+    : lastBrandId;
 
   return (
     <div className="p-6 md:p-8 space-y-10">
@@ -58,7 +68,7 @@ export default async function DashboardPage() {
         initialKpis={kpis}
         initialLastSmokeAt={lastSmokeAt}
         brands={brands}
-        defaultBrandId={lastBrandId}
+        defaultBrandId={preferredBrandId}
         initialCalendarData={calendarData}
         initialYear={currentYear}
         initialRecentSmokes={recentSmokes}
