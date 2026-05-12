@@ -6,6 +6,7 @@ const envSchema = z
     AUTH_SECRET: z.string().min(1),
     AUTH_ACCESS_TOKEN_MAX_AGE_SECONDS: z.coerce.number().int().positive(),
     AUTH_REFRESH_TOKEN_MAX_AGE_SECONDS: z.coerce.number().int().positive(),
+    ADMIN_DASHBOARD_PASSWORD: z.string().min(6),
     AUTH_GOOGLE_ID: z.string().optional(),
     AUTH_GOOGLE_SECRET: z.string().optional(),
     NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),

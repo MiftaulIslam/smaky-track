@@ -37,6 +37,9 @@ export const users = pgTable("users", {
   emailVerified: timestamp("email_verified", { withTimezone: true }),
   image: text("image"),
   hashedPassword: text("hashed_password"),
+  isBlacklisted: boolean("is_blacklisted").notNull().default(false),
+  blacklistedAt: timestamp("blacklisted_at", { withTimezone: true }),
+  blacklistReason: text("blacklist_reason"),
   ...timestamps,
 });
 

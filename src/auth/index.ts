@@ -13,6 +13,14 @@ import { loginSchema } from "../features/auth/schemas";
 const ACCESS_TOKEN_MAX_AGE_SECONDS = env.AUTH_ACCESS_TOKEN_MAX_AGE_SECONDS;
 const REFRESH_TOKEN_MAX_AGE_SECONDS = env.AUTH_REFRESH_TOKEN_MAX_AGE_SECONDS;
 
+async function getBlacklistedUserById(userId: string) {
+  const user = await db.query.users.findFirst({
+    where: eq(users.id, userId),
+  });
+  if (!user) return null;
+  return user.isBlacklisted ? user : null;
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   adapter: DrizzleAdapter(db, {
@@ -44,7 +52,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           where: eq(users.email, email),
         });
 
-        if (!user || !user.hashedPassword) return null;
+        if (!user || !user.hashedPassword || user.isBlacklisted) return null;
 
         const valid = await bcrypt.compare(password, user.hashedPassword);
         if (!valid) return null;
@@ -55,6 +63,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     ...authConfig.callbacks,
+    async signIn({ user }) {
+      if (!user?.id) return false;
+      const blacklisted = await getBlacklistedUserById(user.id);
+      return !blacklisted;
+    },
     async jwt({ token, user }) {
       const nowSeconds = Math.floor(Date.now() / 1000);
       const mutableToken = token as typeof token & {
@@ -83,6 +96,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       if (nowSeconds > mutableToken.accessTokenExpiresAt) {
         mutableToken.accessTokenExpiresAt = nowSeconds + ACCESS_TOKEN_MAX_AGE_SECONDS;
+      }
+
+      if (mutableToken.id) {
+        const blacklisted = await getBlacklistedUserById(mutableToken.id);
+        if (blacklisted) {
+          return {} as typeof token;
+        }
       }
 
       return mutableToken;
